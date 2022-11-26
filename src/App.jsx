@@ -8,6 +8,8 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { RecipeListPage } from './pages/RecipeListPage';
 import { RecipeDetailPage } from './pages/RecipeDetailPage';
 
+import { SideDishPage } from './pages/SideDishPage';
+
 export function App() {
   return (
     <BrowserRouter>
@@ -16,6 +18,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<RecipeListPage />} />
             <Route path="/recept/:slug" element={<RecipeDetailPage />} />
+            <Route path="/sideDish" element={<SideDishPage />} />
             <Route path="/api-test" element={<ApiTestPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
