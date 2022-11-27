@@ -9,6 +9,7 @@ import { RecipeListPage } from './pages/RecipeListPage';
 import { RecipeDetailPage } from './pages/RecipeDetailPage';
 
 import { SideDishPage } from './pages/SideDishPage';
+import { NewRecipePage } from './pages/NewRecipePage';
 
 export function App() {
   return (
@@ -18,9 +19,10 @@ export function App() {
           <Routes>
             <Route path="/" element={<RecipeListPage />} />
             <Route path="/recept/:slug" element={<RecipeDetailPage />} />
-            <Route path="/sideDish" element={<SideDishPage />} />
             <Route path="/api-test" element={<ApiTestPage />} />
             <Route path="*" element={<NotFoundPage />} />
+            <Route path="/sideDish" element={<SideDishPage />} />
+            <Route path="/novy-recept" element={<NewRecipePage />} />
           </Routes>
         </AppLayout>
       </ChakraProvider>

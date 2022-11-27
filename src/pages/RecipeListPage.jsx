@@ -3,6 +3,7 @@ import { Heading, Box, Text, Input, Button } from '@chakra-ui/react';
 import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { RecipeList } from '../components/RecipeList';
+import { Link as ReactRouterLink } from 'react-router-dom';
 
 
 export function RecipeListPage() {
@@ -36,12 +37,12 @@ export function RecipeListPage() {
 
 
   return (
-    <Box displa px={5}>
+    <Box px={5}>
       <Heading color="dodgerblue">
         Recepty
       </Heading>
       <Box textAlign='right' px={5} pb={6}>
-        <Button >
+        <Button as={ReactRouterLink} to="/novy-recept">
           Nový recept
         </Button>
       </Box>

@@ -50,7 +50,6 @@ export function RecipeDetailPage() {
                     <Box mb={10}>
                         <Text textAlign='right'>
                             <DeleteAlert value={detail} detail={detail} />
-                            {/*<Button gap={1} onClick={() => Delete(detail._id)} ><DeleteIcon /> Delete</Button><Button>Upravit</Button>*/}
                             <Button >Upravit</Button>
                         </Text>
                         <Text  >
@@ -91,7 +90,15 @@ export function RecipeDetailPage() {
                             <FormatDate date={detail.lastModifiedDate} />
 
                         </Box>
-                        <FormatDirections TextToSplit={detail.directions} />
+                        {console.log(detail.directions)}
+                        {detail.directions !== undefined
+                            ? detail.directions.length !== 0
+                                ?
+                                <FormatDirections TextToSplit={detail.directions} />
+                                : <Text bg='red.100'>Žádný postup.</Text>
+                            : <Text bg='red.100'>Žádný postup.</Text>
+                        }
+
                     </Box>
                 </>
             )

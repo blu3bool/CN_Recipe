@@ -40,7 +40,6 @@ export function DeleteAlert(detail) {
                         Smazat recept
                         <ModalCloseButton />
                     </ModalHeader>
-
                     <ModalBody>
                         <form
                             id="new-note"

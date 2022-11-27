@@ -8,22 +8,29 @@ export function PreparationTime({ preparationTimeVar }) {
     const minutes = preparationTimeVar % 60;
     return (
         <Text >
-            {preparationTimeVar % 60 !== 0 && hours !== 0 &&
-                <Text color='blue.600' fontSize='1xl'>
-                    <TimeIcon /> {hours} h {minutes} min
-                </Text>
-            }
-            {preparationTimeVar % 60 === 0 && hours !== 0 &&
-                <Text color='blue.600' fontSize='1xl' >
-                    <TimeIcon /> {hours} h
-                </Text>
+            {preparationTimeVar === undefined
+                ? <br></br>
+                :
+                <Text>{preparationTimeVar % 60 !== 0 && hours !== 0 &&
+                    <Text color='blue.600' fontSize='1xl'>
+                        <TimeIcon /> {hours} h {minutes} min
+                    </Text>
+                }
+                    {preparationTimeVar % 60 === 0 && hours !== 0 &&
+                        <Text color='blue.600' fontSize='1xl' >
+                            <TimeIcon /> {hours} h
+                        </Text>
+                    }
+
+                    {hours === 0 &&
+                        <Text color='blue.600' fontSize='1xl' >
+                            <TimeIcon /> {minutes} min
+                        </Text>
+                    }</Text>
             }
 
-            {hours === 0 &&
-                <Text color='blue.600' fontSize='1xl' >
-                    <TimeIcon /> {minutes} min
-                </Text>
-            }
+
+
 
 
 
