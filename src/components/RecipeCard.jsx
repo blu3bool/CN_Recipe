@@ -1,4 +1,4 @@
-import { Card, CardBody, Image, Heading, Divider, CardFooter, Text, Box } from '@chakra-ui/react'
+import { Card, CardBody, Image, Divider, CardFooter, Text, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import PlaceholderImage from '../images/food-placeholder.png'
 import SideDishImage from '../images/food_icon.png'

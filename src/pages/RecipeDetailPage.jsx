@@ -1,12 +1,15 @@
-import { Box, Heading, List, ListIcon, ListItem, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react';
+import { Box, Heading, List, ListIcon, ListItem, Text, Button } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { MdCheckCircle } from "react-icons/md";
-import { TimeIcon } from '@chakra-ui/icons'
+import { DeleteIcon } from '@chakra-ui/icons'
 import { PreparationTime } from '../components/PreparationTime'
-
+import { IngredientList } from '../components/IngredientList';
+import { FormatDirections } from '../components/FormatDirections';
+import { FormatDate } from '../components/FormatDate';
+import { DeleteAlert } from '../components/DeleteAlert'
 
 
 export function RecipeDetailPage() {
@@ -14,8 +17,10 @@ export function RecipeDetailPage() {
     const { slug } = useParams();
     const [detail, setDetail] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('')
-    const span = <span> whatever your string </span>
+    const [error, setError] = useState('');
+
+
+    console.log(detail);
 
     useEffect(() => {
         function getRecipesDetail() {
@@ -26,6 +31,7 @@ export function RecipeDetailPage() {
                 .catch((error) => setError(error))
                 .finally(() => setIsLoading(false));
         }
+
 
         getRecipesDetail();
     }, [slug]);
@@ -40,41 +46,52 @@ export function RecipeDetailPage() {
         <Box px={5}>
             {detail && (
                 <>
-                    <Heading>{detail.title}</Heading>
-                    <Box display="flex" justifyContent="space-between" mt={10}>
-                        <Box width={750} >
-                            <Text mb={10}>
-                                <PreparationTime preparationTimeVar={detail.preparationTime} />
-                            </Text>
+                    <Heading mb={5}>{detail.title}</Heading>
+                    <Box mb={10}>
+                        <Text textAlign='right'>
+                            <DeleteAlert value={detail} detail={detail} />
+                            {/*<Button gap={1} onClick={() => Delete(detail._id)} ><DeleteIcon /> Delete</Button><Button>Upravit</Button>*/}
+                            <Button >Upravit</Button>
+                        </Text>
+                        <Text  >
+                            <PreparationTime preparationTimeVar={detail.preparationTime} />
+                        </Text>
+
+                    </Box>
+                    <Box display='flex' mt={10} >
+                        <Box w={400} >
+
                             <Heading mb={3} size='md'>
                                 Ingrediencie:
                             </Heading>
-                            {span}
                             {detail.ingredients && (
                                 <List mb={20} spacing={3}>
+                                    <Text ><b>Počet porcii :</b> {detail.servingCount}</Text>
+                                    {detail.ingredients.length === 0 &&
+                                        <Box >
+                                            <Heading size='md' color='red.500'>
+                                                Žádné ingredience.
+                                            </Heading>
+                                        </Box>
+                                    }
                                     {detail.ingredients.map((ingredient) => (
 
                                         <ListItem key={ingredient._id}>
-                                            <Box display="flex">
+                                            <Box display="flex" gap={2}>
                                                 <ListIcon as={MdCheckCircle} color='green.500' />
-
-                                                <Text>
-                                                    {`${ingredient.amount} ${ingredient.amountUnit}   ${ingredient.name}`}
-                                                </Text>
-
+                                                <IngredientList ingredient={ingredient.amount} />
+                                                <IngredientList ingredient={ingredient.amountUnit} />
+                                                <IngredientList ingredient={ingredient.name} />
                                             </Box>
                                         </ListItem>
                                     ))}
                                 </List>
                             )}
                             <Text>Naposledy upraveno:</Text>
-                            <Text>{detail.lastModifiedDate}</Text>
-                        </Box>
-                        <Box >
-
-                            {detail.directions && <Text ml={20}>{detail.directions}</Text>}
+                            <FormatDate date={detail.lastModifiedDate} />
 
                         </Box>
+                        <FormatDirections TextToSplit={detail.directions} />
                     </Box>
                 </>
             )

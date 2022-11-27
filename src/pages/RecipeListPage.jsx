@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Heading, Box, Text, Input } from '@chakra-ui/react';
-import { RecipeCard } from '../components/RecipeCard';
+import { Heading, Box, Text, Input, Button } from '@chakra-ui/react';
 import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
-import { ArrowUpIcon } from '@chakra-ui/icons';
 import { RecipeList } from '../components/RecipeList';
 
 
@@ -38,15 +36,20 @@ export function RecipeListPage() {
 
 
   return (
-    <Box px={5}>
-      <Heading my={4} color="dodgerblue">
+    <Box displa px={5}>
+      <Heading color="dodgerblue">
         Recepty
       </Heading>
+      <Box textAlign='right' px={5} pb={6}>
+        <Button >
+          Nový recept
+        </Button>
+      </Box>
       <Input placeholder='Hladaj' value={searchValue} onChange={handleInputValueChange} />
       {isLoading && <LoadingSpinner />}
       {error && <Text>{error}</Text>}
       <RecipeList recipes={filteredRecipes} />
-    </Box>
+    </Box >
 
   );
 }

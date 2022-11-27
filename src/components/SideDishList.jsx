@@ -1,5 +1,5 @@
-import { Stack, Text } from '@chakra-ui/react'
-import { RecipeCard } from './RecipeCard';
+import { Text } from '@chakra-ui/react'
+
 
 export function SideDishList() {
     return (

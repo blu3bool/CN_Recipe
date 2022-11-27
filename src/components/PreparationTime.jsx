@@ -6,9 +6,8 @@ export function PreparationTime({ preparationTimeVar }) {
 
     const hours = Math.floor(preparationTimeVar / 60);
     const minutes = preparationTimeVar % 60;
-    console.log(preparationTimeVar)
     return (
-        <Text>
+        <Text >
             {preparationTimeVar % 60 !== 0 && hours !== 0 &&
                 <Text color='blue.600' fontSize='1xl'>
                     <TimeIcon /> {hours} h {minutes} min
