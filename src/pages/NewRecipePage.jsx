@@ -116,7 +116,7 @@ export function NewRecipePage() {
             <Grid >
                 <HStack gap={5}>
 
-                    <BasicInformation inputValue={sideDish} onInputValueChange={setSideDish} />
+                    <BasicInformation inputValue={sideDish} onInputValueChange={setSideDish} inputValue2={test} onInputValueChange2={setTest} />
                     <VStack alignItems='left' >
                         <Text fontSize='xl'>Ingredience</Text>
                         {!!!ingredients.length &&

@@ -28,7 +28,7 @@ export function BasicInformation({ onInputValueChange, inputValue, inputValue2, 
             <Text fontSize='xl'>Základní údaje</Text>
             <Text >Doba přípravy</Text>
             <InputGroup >
-                <NumberInputForm inputValue={time} onInputValueChange={setTime} />
+                <NumberInputForm inputValue={inputValue2} onInputValueChange={onInputValueChange2} />
                 <InputRightAddon children='min' />
             </InputGroup >
             <Text>Počet porcí</Text>
