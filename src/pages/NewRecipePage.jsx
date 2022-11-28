@@ -1,33 +1,87 @@
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, InputGroup, InputRightAddon, Stack, InputRightElement, Center, } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, InputGroup, InputRightAddon, Stack, InputRightElement, Center, Heading, Select, } from "@chakra-ui/react";
 import { Link, Link as ReactRouterLink } from 'react-router-dom';
-import { FaSave } from "react-icons/fa";
-import { useState } from "react";
+import { FaSave, FaTrash } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { NumberInputForm } from "../components/NumberInputForm";
+import { api } from "../api";
+import { BasicInformation } from "../components/BasicInformation";
 
 
 
 
 export function NewRecipePage() {
+
     const [title, setTitle] = useState('');
+
     const [sideDish, setSideDish] = useState('');
-    const [time, setTime] = useState('');
-    const [servingCount, setServingCount] = useState('');
+
+
+    const [quantity, setQuantity] = useState('');
+    const [amountUnit, setAmountUnit] = useState('');
+    const [newIngredience, setNewIngredience] = useState();
+    const [ingredients, setIngredients] = useState([]);
+
+    const [newGroup, setNewGroup] = useState();
+
+
+    const [test, setTest] = useState();
+
 
     function handleInputTitleChange(event) {
         setTitle(event.currentTarget.value)
     }
     function handleInputSideDishChange(event) {
-        setSideDish(event.currentTarget.value)
+        setSideDish(event.currentTarget.value);
+        console.log(event.currentTarget.value)
     }
+    function handleInputAmountUnitChange(event) {
+        setAmountUnit(event.currentTarget.value)
+    }
+    function handleInputAmountUnitChange(event) {
+        setAmountUnit(event.currentTarget.value)
+    }
+
+
+    function handleInputNewIngredienceChange(event) {
+        setNewIngredience(event.currentTarget.value)
+    }
+    function handleAddNewIngredientChange() {
+        setIngredients(arr => [...arr, [quantity, amountUnit, newIngredience, false]])
+        setQuantity('');
+        setAmountUnit('')
+        setNewIngredience('')
+    }
+    function handleRemoveIngredient(event) {
+        let index = event.currentTarget.value;
+        ingredients.splice(index, 1);
+        setIngredients(arr => [...arr])
+    }
+
+
+    function handleInputNewGroupChange(event) {
+        setNewGroup(event.currentTarget.value)
+    }
+    function handleAddNewGroupChange() {
+        setIngredients(arr => [...arr, [newGroup, true]])
+        setNewGroup('')
+
+    }
+
     function AddNewRecipe() {
         console.log(title)
+        console.log('sideDish')
         console.log(sideDish)
-        console.log(time)
-        console.log(servingCount)
+        console.log('time')
+        console.log(test)
+        //console.log(servingCount)
+        console.log(quantity)
+        console.log(amountUnit)
+
+        console.log('Ingrediencie')
+        console.log(ingredients)
     }
     return (
         <Box px={5} >
-
 
             <HStack mb={5}>
                 <Box fontSize='5xl' color='blue.400'>
@@ -61,38 +115,60 @@ export function NewRecipePage() {
 
             <Grid >
                 <HStack gap={5}>
+
+                    <BasicInformation inputValue={sideDish} onInputValueChange={setSideDish} />
                     <VStack alignItems='left' >
-                        <Text fontSize='xl'>Základní údaje</Text>
-                        <Text >Doba přípravy</Text>
-                        <InputGroup >
-                            <NumberInputForm inputValue={time} onInputValueChange={setTime} />
-                            <InputRightAddon children='min' />
-                        </InputGroup >
-                        <Text >Počet porcí</Text>
-                        <InputGroup>
-                            <NumberInputForm inputValue={servingCount} onInputValueChange={setServingCount} />
-                        </InputGroup>
-                        <Text>Příloha</Text>
-                        <Input value={sideDish} onChange={handleInputSideDishChange} />
-                    </VStack>
-                    <VStack alignItems='left' width={600}>
                         <Text fontSize='xl'>Ingredience</Text>
-                        <Text >Zatím žádné ingredience.</Text>
+                        {!!!ingredients.length &&
+
+                            < Text >Zatím žádné ingredience.</Text>
+                        }
+                        {ingredients.map((ingre, index) => (
+                            <>
+                                {ingre[ingre.length - 1] !== true
+                                    ?
+                                    <HStack >
+                                        <Button variant='ghost' value={[index]} onClick={handleRemoveIngredient}>
+                                            <FaTrash />
+                                        </Button>
+
+                                        <HStack >
+                                            <Text>{ingre[0]}</Text>
+                                            <Text>{ingre[1]}</Text>
+                                            <Text>{ingre[2]}</Text>
+                                        </HStack>
+                                    </HStack>
+                                    :
+                                    <HStack bg='blue.100' alignItems='center'>
+                                        <Button variant='ghost' value={[index]} onClick={handleRemoveIngredient}>
+                                            <FaTrash />
+                                        </Button>
+                                        <Box>
+                                            <Heading size='md'>{ingre[0]}</Heading>
+                                        </Box>
+                                    </HStack>
+
+                                }
+                            </>
+                        ))
+
+                        }
+
                         <Text >Přidat ingredienci</Text>
                         <HStack>
-                            <NumberInputForm placeholder='Množství' />
-                            <Input placeholder='Jednotka' />
+                            <NumberInputForm placeholder='Množství' inputValue={quantity} onInputValueChange={setQuantity} />
+                            <Input placeholder='Jednotka' value={amountUnit} onChange={handleInputAmountUnitChange} />
                         </HStack>
                         <InputGroup >
-                            <Input />
-                            <Button>
+                            <Input placeholder='Název' value={newIngredience} onChange={handleInputNewIngredienceChange} />
+                            <Button onClick={handleAddNewIngredientChange}>
                                 + Přidat
                             </Button>
                         </InputGroup>
                         <Text >Přidat skupinu</Text>
                         <InputGroup >
-                            <Input />
-                            <Button>
+                            <Input placeholder='Nová skupina' value={newGroup} onChange={handleInputNewGroupChange} />
+                            <Button onClick={handleAddNewGroupChange}>
                                 + Přidat
                             </Button>
                         </InputGroup>
@@ -104,7 +180,7 @@ export function NewRecipePage() {
                         <Input />
                     </VStack>
                 </HStack>
-            </Grid>
+            </Grid >
 
         </Box >
     )

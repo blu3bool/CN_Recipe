@@ -35,7 +35,6 @@ export function RecipeListPage() {
     recipe.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
-
   return (
     <Box px={5}>
       <Heading color="dodgerblue">

@@ -21,12 +21,7 @@ export function FormatDirections({ TextToSplit }) {
                         </Box>
 
                     }
-                </ListItem>)
-
-
-
-
-            )
+                </ListItem>))
             }
         </List >
     )

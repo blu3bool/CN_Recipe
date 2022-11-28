@@ -8,9 +8,7 @@ export function PreparationTime({ preparationTimeVar }) {
     const minutes = preparationTimeVar % 60;
     return (
         <Text >
-            {preparationTimeVar === undefined
-                ? <br></br>
-                :
+            {!!preparationTimeVar &&
                 <Text>{preparationTimeVar % 60 !== 0 && hours !== 0 &&
                     <Text color='blue.600' fontSize='1xl'>
                         <TimeIcon /> {hours} h {minutes} min
@@ -28,12 +26,6 @@ export function PreparationTime({ preparationTimeVar }) {
                         </Text>
                     }</Text>
             }
-
-
-
-
-
-
         </Text>
     )
 }
