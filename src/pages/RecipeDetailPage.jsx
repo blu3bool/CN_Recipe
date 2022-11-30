@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { MdCheckCircle } from "react-icons/md";
-import { DeleteIcon } from '@chakra-ui/icons'
+import { Link as ReactRouterLink } from 'react-router-dom';
 import { PreparationTime } from '../components/PreparationTime'
 import { IngredientList } from '../components/IngredientList';
 import { FormatDirections } from '../components/FormatDirections';
@@ -19,8 +19,6 @@ export function RecipeDetailPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-
-    console.log(detail);
 
     useEffect(() => {
         function getRecipesDetail() {
@@ -50,7 +48,7 @@ export function RecipeDetailPage() {
                     <Box mb={10}>
                         <Text textAlign='right'>
                             <DeleteAlert value={detail} detail={detail} />
-                            <Button >Upravit</Button>
+                            <Button as={ReactRouterLink} to={`/recept/${slug}/uprava`} >Upravit</Button>
                         </Text>
                         <Text  >
                             <PreparationTime preparationTimeVar={detail.preparationTime} />
@@ -90,7 +88,6 @@ export function RecipeDetailPage() {
                             <FormatDate date={detail.lastModifiedDate} />
 
                         </Box>
-                        {console.log(detail.directions)}
                         {detail.directions !== undefined
                             ? detail.directions.length !== 0
                                 ?

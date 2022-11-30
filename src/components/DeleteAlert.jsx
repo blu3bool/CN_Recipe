@@ -1,6 +1,4 @@
-import { DeleteIcon } from '@chakra-ui/icons'
 import {
-    ChakraProvider,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -9,8 +7,6 @@ import {
     ModalBody,
     FormControl,
     FormLabel,
-    FormHelperText,
-    Input,
     ModalFooter,
     Button,
     useDisclosure
@@ -20,14 +16,17 @@ import { api } from '../api';
 
 export function DeleteAlert(detail) {
     const { isOpen, onClose, onOpen } = useDisclosure();
+
     function Delete(id) {
         fetch(`${api.getUri()}recipes/${id}`, {
             method: 'DELETE'
-        }).then((result) => {
-            result.json().then((resp) => {
-                console.warn(resp)
-            })
         })
+            .then((result) => {
+                result.json().then((resp) => {
+                    console.warn(resp)
+                })
+            })
+            .then(window.location.href = `/`);
 
     }
     return (
@@ -46,7 +45,7 @@ export function DeleteAlert(detail) {
                             onSubmit={(event) => {
                                 event.preventDefault();
                                 Delete(detail.detail._id);
-                                window.location.href = `/`
+
                             }}
                         >
                             <FormControl>

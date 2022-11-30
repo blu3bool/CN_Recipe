@@ -1,20 +1,24 @@
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, } from "@chakra-ui/react";
-import { Link, Link as ReactRouterLink } from 'react-router-dom';
+import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea } from "@chakra-ui/react";
+import { Link, Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../api";
 import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
 import { DirecionView } from "../components/DirecionView";
+import { LoadingSpinner } from '../components/LoadingSpinner';
 
 
 
 
-export function NewRecipePage() {
-
+export function EditRecipePage() {
+    const { slug } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [data, setData] = useState([]);
     const [title, setTitle] = useState('');
     const [time, setTime] = useState(0);
-    const [sideDish, setSideDish] = useState('');
+    const [sideDish, setSideDish] = useState(null);
     const [servingCount, setServingCount] = useState(0);
     const [quantity, setQuantity] = useState('');
     const [amountUnit, setAmountUnit] = useState('');
@@ -23,11 +27,40 @@ export function NewRecipePage() {
     const [group, setGroup] = useState('');
     const [directions, setDirections] = useState('');
 
+    useEffect(() => {
+        function getRecipesDetail() {
+            setIsLoading(true);
+            api
+                .get(`/recipes/${slug}`)
+                .then((response) => (
+                    setData(response.data),
+                    setTitle(response.data.title),
+                    setTime(response.data.preparationTime),
+                    setSideDish(response.data.sideDish),
+                    setServingCount(response.data.servingCount),
+                    setDirections(response.data.directions),
+                    setIngredients(response.data.ingredients)
+                ))
+                .catch((error) => setError(error))
+                .finally(() => setIsLoading(false));
+        }
+
+
+        getRecipesDetail();
+    }, [slug]);
+
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
+    if (error) {
+        return <Text>{error}</Text>
+    }
     function handleInputTitleChange(event) {
         setTitle(event.currentTarget.value)
     }
+
     function SetFullIngredient() {
-        ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: true })
+        ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
         setQuantity('');
         setAmountUnit('')
         setName('')
@@ -44,26 +77,24 @@ export function NewRecipePage() {
     function DirectionSet(event) {
         setDirections(event.currentTarget.value)
     }
-    function AddNewRecipe() {
+    function EditRecipee() {
+
         const requestOptions = {
-            method: 'POST',
+            method: 'POST', // NEBUDE TAM PUT, KEDZE TO NIEJE Axios
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: title,
-                preparationTime: time,
-                sideDish: sideDish,
                 servingCount: servingCount,
+                sideDish: sideDish,
+                preparationTime: time,
                 directions: directions,
-                ingredients: ingredients
+                ingredients: ingredients,
             })
         };
-        fetch(`${api.getUri()}recipes/`, requestOptions)
+        fetch(`${api.getUri()}recipes/${data._id}`, requestOptions)
             .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
-        window.location.href = `/`
-
-
-
+            .then(data => this.setState({ postId: data.id }))
+            .then(window.location.href = `/recept/${data._id}`);
     }
     return (
         <Box px={5} >
@@ -78,8 +109,8 @@ export function NewRecipePage() {
                 <Spacer />
                 <Box mb={10}  >
                     <HStack spacing={2} alignItems='end' >
-                        <Button gap={1} bg='green.300' color='white' onClick={AddNewRecipe}><FaSave />Uložit</Button>
-                        <Link as={ReactRouterLink} to="/">
+                        <Button gap={1} bg='green.300' color='white' onClick={EditRecipee}><FaSave />Uložit</Button>
+                        <Link as={ReactRouterLink} to={`/recept/${slug}`}>
                             <Button>Zrušit</Button>
                         </Link>
                     </HStack>
@@ -130,11 +161,3 @@ export function NewRecipePage() {
     )
 
 }
-
-
-
-
-
-
-
-

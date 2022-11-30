@@ -10,6 +10,7 @@ import { RecipeDetailPage } from './pages/RecipeDetailPage';
 
 import { SideDishPage } from './pages/SideDishPage';
 import { NewRecipePage } from './pages/NewRecipePage';
+import { EditRecipePage } from './pages/EditRecipePage';
 
 export function App() {
   return (
@@ -23,6 +24,7 @@ export function App() {
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/sideDish" element={<SideDishPage />} />
             <Route path="/novy-recept" element={<NewRecipePage />} />
+            <Route path="/recept/:slug/uprava" element={<EditRecipePage />} />
           </Routes>
         </AppLayout>
       </ChakraProvider>

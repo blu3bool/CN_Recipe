@@ -34,7 +34,6 @@ export function RecipeListPage() {
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.title.toLowerCase().includes(searchValue.toLowerCase()),
   );
-
   return (
     <Box px={5}>
       <Heading color="dodgerblue">

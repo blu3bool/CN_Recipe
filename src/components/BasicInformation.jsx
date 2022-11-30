@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, InputGroup, InputRightAddon, Stack, InputRightElement, Center, Heading, Select, } from "@chakra-ui/react";
+import { Text, VStack, InputGroup, InputRightAddon, Select } from "@chakra-ui/react";
 import { NumberInputForm } from './NumberInputForm';
 import { api } from '../api';
 
