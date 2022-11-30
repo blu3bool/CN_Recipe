@@ -1,34 +1,27 @@
 import React from 'react'
-import { Text } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import { TimeIcon } from '@chakra-ui/icons'
 
 export function PreparationTime({ preparationTimeVar }) {
 
     const hours = Math.floor(preparationTimeVar / 60);
     const minutes = preparationTimeVar % 60;
-
-    const result = minutesToHours(preparationTimeVar)
+    let onlyMinutes = hours === 0
+    let onlyHours = minutes === 0
     return (
-        <Text >
-            <Text>result</Text>
+        <HStack color='blue.600' fontSize='1xl' gap={1}>
             {!!preparationTimeVar &&
-                <Text>{preparationTimeVar % 60 !== 0 && hours !== 0 &&
-                    <Text color='blue.600' fontSize='1xl'>
-                        <TimeIcon /> {hours} h {minutes} min
-                    </Text>
-                }
-                    {preparationTimeVar % 60 === 0 && hours !== 0 &&
-                        <Text color='blue.600' fontSize='1xl' >
-                            <TimeIcon /> {hours} h
-                        </Text>
+                <>
+                    <TimeIcon />
+                    {onlyMinutes
+                        ? `${minutes} min`
+                        : <>{onlyHours
+                            ? `${hours} h`
+                            : `${hours} h ${minutes} min`
+                        }</>
                     }
-
-                    {hours === 0 &&
-                        <Text color='blue.600' fontSize='1xl' >
-                            <TimeIcon /> {minutes} min
-                        </Text>
-                    }</Text>
+                </>
             }
-        </Text>
+        </HStack>
     )
 }
