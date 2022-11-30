@@ -11,7 +11,7 @@ import { useState } from 'react';
 export function NumberInputForm({ onInputValueChange, placeholder, inputValue }) {
     return (
         <NumberInput
-            min={1}
+            min={0}
             value={inputValue}
             onChange={(val) => onInputValueChange(val)}
         >

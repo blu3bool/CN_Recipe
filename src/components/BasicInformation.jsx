@@ -5,11 +5,7 @@ import { api } from '../api';
 
 
 
-export function BasicInformation({ onInputValueChange, inputValue, inputValue2, onInputValueChange2 }) {
-
-
-    const [servingCount, setServingCount] = useState(0);
-    const [time, setTime] = useState(0);
+export function BasicInformation({ inputValueForSideDish, onInputValueChangeForSideDish, inputValueForTime, onInputValueChangeForTime, inputValueForServingCount, onInputValueChangeForServingCount }) {
 
     useEffect(() => {
         function SideDishes() {
@@ -17,40 +13,42 @@ export function BasicInformation({ onInputValueChange, inputValue, inputValue2, 
         }
         SideDishes();
     }, [])
+
     function onFetchSuccess({ data }) {
         setSidedishes({
             data
         });
     }
+
     const [sidedishes, setSidedishes] = useState([]);
+
     return (
         <VStack alignItems='left' >
             <Text fontSize='xl'>Základní údaje</Text>
             <Text >Doba přípravy</Text>
             <InputGroup >
-                <NumberInputForm inputValue={inputValue2} onInputValueChange={onInputValueChange2} />
+                <NumberInputForm inputValue={inputValueForTime} onInputValueChange={onInputValueChangeForTime} />
                 <InputRightAddon children='min' />
             </InputGroup >
             <Text>Počet porcí</Text>
             <InputGroup>
-                <NumberInputForm inputValue={servingCount} onInputValueChange={setServingCount} />
+                <NumberInputForm inputValue={inputValueForServingCount} onInputValueChange={onInputValueChangeForServingCount} />
             </InputGroup>
             <Text>Příloha</Text>
+
             {sidedishes.length !== 0 &&
                 <Select placeholder='Select option'
+                    value={inputValueForSideDish}
+                    onChange={(val) => onInputValueChangeForSideDish(val.target.value)} >
 
-                    value={inputValue}
-                    onChange={(val) => onInputValueChange(val.target.value)}
-
-                >
                     {sidedishes.data.map((dish) =>
                         <option value={dish}
                         >{dish}</option>
 
                     )}
-
                 </Select>
             }
+
         </VStack>
     )
 }
