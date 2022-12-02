@@ -1,0 +1,67 @@
+.shadowbox {
+  background-color: #ff7b8c;
+  font-family: 'Poiret One', cursive;
+  text-align: center;
+  transition: all 0.7s cubic-bezier(0, 0.56, 0.58, 1);
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+}
+.shadowbox:hover {
+  position: relative;
+  overflow: hidden;
+  -webkit-box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.75);
+  transform: scale(1.09);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 51%,
+    rgba(126, 227, 255, 0.6573004201680672) 100%
+  );
+}
+
+.ownbutton {
+  text-transform: uppercase;
+  background: none;
+  letter-spacing: 2px;
+  color: rgb(0, 119, 255);
+  font-weight: bold;
+  font-size: 16px;
+  border: 4px solid;
+  cursor: pointer;
+}
+
+.ownbutton::after {
+  content: '';
+  background-color: transparent;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  opacity: 0;
+  color: #3f51b5;
+  z-index: -1;
+}
+
+.ownbutton:hover::after {
+  opacity: 1;
+  background-color: #879dcc;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ownbutton,
+.ownbutton:after {
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.ownbutton:hover {
+  border: 4px solid #cc879e;
+}

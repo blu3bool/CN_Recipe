@@ -1,11 +1,14 @@
 import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, } from "@chakra-ui/react";
-import { Link, Link as ReactRouterLink } from 'react-router-dom';
+import { Link, Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
 import { useState } from "react";
 import { api } from "../api";
 import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
 import { DirecionView } from "../components/DirecionView";
+
+
+
 
 
 
@@ -23,11 +26,14 @@ export function NewRecipePage() {
     const [group, setGroup] = useState('');
     const [directions, setDirections] = useState('');
 
+    const navigate = useNavigate();
+
+
     function handleInputTitleChange(event) {
         setTitle(event.currentTarget.value)
     }
     function SetFullIngredient() {
-        ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: true })
+        ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
         setQuantity('');
         setAmountUnit('')
         setName('')
@@ -45,23 +51,18 @@ export function NewRecipePage() {
         setDirections(event.currentTarget.value)
     }
     function AddNewRecipe() {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+        api
+            .post(`${api.getUri()}recipes/`, {
                 title: title,
-                preparationTime: time,
-                sideDish: sideDish,
                 servingCount: servingCount,
+                sideDish: sideDish,
+                preparationTime: time,
                 directions: directions,
                 ingredients: ingredients
             })
-        };
-        fetch(`${api.getUri()}recipes/`, requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
-        window.location.href = `/`
-
+            .then((response) => {
+                navigate(`/recept/${response.data._id}`)
+            });
 
 
     }

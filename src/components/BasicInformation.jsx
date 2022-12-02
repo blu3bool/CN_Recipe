@@ -40,9 +40,8 @@ export function BasicInformation({ inputValueForSideDish, onInputValueChangeForS
                 <Select placeholder='Select option'
                     value={inputValueForSideDish}
                     onChange={(val) => onInputValueChangeForSideDish(val.target.value)} >
-
                     {sidedishes.data.map((dish) =>
-                        <option value={dish}
+                        <option key={dish} value={dish}
                         >{dish}</option>
 
                     )}

@@ -1,4 +1,4 @@
-import { Button, HStack, Input, Text, VStack, InputGroup, Heading } from "@chakra-ui/react";
+import { Button, HStack, Input, Text, VStack, InputGroup, Heading, Box } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 import { NumberInputForm } from "../components/NumberInputForm";
 
@@ -13,10 +13,10 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
                 < Text bg='red.100' > Zatím žádné ingredience.</Text>
             }
             {inputValueForIngredients.map((ingre, index) => (
-                <>
+                <Box key={ingre._id}>
+                    {console.log(ingre)}
                     {ingre.isGroup !== true
                         ?
-
                         <HStack >
 
                             <Button variant='ghost' value={[index]} onClick={removeIngredient}><FaTrash /></Button>
@@ -33,12 +33,8 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
                         </HStack>
 
                     }
-                </>
-            ))
-
-            }
-
-
+                </Box >
+            ))}
 
             <Text >Přidat ingredienci</Text>
             <HStack>
@@ -52,7 +48,7 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
                 <Input placeholder='Název'
                     value={inputValueForName}
                     onChange={(val) => onInputValueChangeForName(val.target.value)} />
-                <Button onClick={onInputValueChangeForIngredients}>
+                <Button onClick={onInputValueChangeForIngredients}  >
                     + Přidat
                 </Button>
             </InputGroup>

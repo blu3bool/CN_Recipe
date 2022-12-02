@@ -8,6 +8,7 @@ export function PreparationTime({ preparationTimeVar }) {
     const minutes = preparationTimeVar % 60;
     let onlyMinutes = hours === 0
     let onlyHours = minutes === 0
+    console.log(preparationTimeVar)
     return (
         <>
             {preparationTimeVar &&

@@ -9,6 +9,7 @@ export function FormatDirections({ directions }) {
                 <ReactMarkdown
                     className={style.reactMarkDown}
                     children={directions} />
+
             }
         </>
     )

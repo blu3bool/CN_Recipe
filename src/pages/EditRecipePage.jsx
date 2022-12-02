@@ -1,5 +1,5 @@
 import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex } from "@chakra-ui/react";
-import { Link, Link as ReactRouterLink, useParams } from 'react-router-dom';
+import { Link, Link as ReactRouterLink, useNavigate, useParams } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { api } from "../api";
@@ -26,6 +26,8 @@ export function EditRecipePage() {
     const [ingredients, setIngredients] = useState([]);
     const [group, setGroup] = useState('');
     const [directions, setDirections] = useState('');
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         function getRecipesDetail() {
@@ -61,6 +63,7 @@ export function EditRecipePage() {
 
     function SetFullIngredient() {
         ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
+        console.log('KURWA')
         setQuantity('')
         setAmountUnit('')
         setName('')
@@ -72,28 +75,25 @@ export function EditRecipePage() {
     }
     function AddGroupToIngredient() {
         ingredients.push({ name: group, isGroup: true })
-        setGroup('')
+        setGroup('Ahoj')
     }
     function DirectionSet(event) {
         setDirections(event.currentTarget.value)
     }
     function EditRecipee() {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+        api
+            .post(`${api.getUri()}recipes/${data._id}`, {
                 title: title,
                 servingCount: servingCount,
                 sideDish: sideDish,
                 preparationTime: time,
                 directions: directions,
-                ingredients: ingredients,
+                ingredients: ingredients
             })
-        };
-        fetch(`${api.getUri()}recipes/${data._id}`, requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }))
-            .then(window.location.href = `/recept/${data._id}`);
+            .then(navigate(`/recept/${data._id}`));
+
+
+
     }
     return (
         <Box px={5} >

@@ -30,9 +30,8 @@ export function RecipeListPage() {
   function handleInputValueChange(event) {
     setSearchValue(event.currentTarget.value)
   }
-
   const filteredRecipes = recipes.filter((recipe) =>
-    recipe.title.toLowerCase().includes(searchValue.toLowerCase()),
+    recipe.title.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(searchValue.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
   );
   return (
     <Box px={5}>
@@ -40,7 +39,7 @@ export function RecipeListPage() {
         Recepty
       </Heading>
       <Box textAlign='right' px={5} pb={6}>
-        <Button as={ReactRouterLink} to="/novy-recept">
+        <Button as={ReactRouterLink} to="/novy-recept" className='ownbutton'>
           Nový recept
         </Button>
       </Box>

@@ -11,6 +11,7 @@ import { FormatDirections } from '../components/FormatDirections';
 import { FormatDate } from '../components/FormatDate';
 import { DeleteAlert } from '../components/DeleteAlert'
 import { NumberInputForm } from '../components/NumberInputForm';
+import '../module/style.css'
 
 
 export function RecipeDetailPage() {
@@ -62,39 +63,40 @@ export function RecipeDetailPage() {
     return (
         <Box px={5} >
             {detail && (
-                <Box>
+                <Box >
                     <HStack mb={10}>
                         <Box>
-                            <Heading color='blue.500'>{detail.title}</Heading>
+                            <Heading color='blue.500'>{title}</Heading>
                         </Box>
                         <Spacer />
                         <Flex gap={2}>
-                            <DeleteAlert value={detail} detail={detail} />
+                            <DeleteAlert title={title} id={detail._id} detail={detail} />
                             <Button as={ReactRouterLink} to={`/recept/${slug}/uprava`} >Upravit</Button>
                         </Flex>
                     </HStack>
 
                     <Box mb={3}>
-                        <PreparationTime preparationTimeVar={time} />
+                        {time !== 0 &&
+                            < PreparationTime preparationTimeVar={time} />
+                        }
                     </Box>
 
                     <HStack alignItems='left' >
-                        <VStack alignItems='left'>
+                        <VStack alignItems='left' mr={5}>
                             {servingCount && ingredients.length &&
-                                <InputGroup>
+                                <InputGroup size='lg'>
                                     <InputLeftAddon bg='blue.100' children='Počet porcí' />
                                     <NumberInputForm inputValue={calculateServingCount} onInputValueChange={setCalculateServingCount} />
                                 </InputGroup>
                             }
-                            {console.log(ingredients)}
                             <IngredientList ingredients={ingredients} servingCount={servingCount} calculateServingCount={calculateServingCount} />
                         </VStack>
-                        <Flex>
-                            {directions
-                                ? <FormatDirections directions={directions} />
-                                : <Heading size='md' bg='blue.100' >Žádný postup.</Heading>
-                            }
-                        </Flex>
+                        {directions
+                            ? <FormatDirections directions={directions} />
+                            : <Box w="100%" >
+                                <Heading textAlign='center' size='md' bg='blue.100' border='6px solid lightblue' >Žádný postup.</Heading>
+                            </Box>
+                        }
                     </HStack>
                     <Heading size='sm' mt={3}>Naposledy upraveno:</Heading>
                     <FormatDate date={detail.lastModifiedDate} />

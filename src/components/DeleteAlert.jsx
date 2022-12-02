@@ -12,22 +12,18 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import { api } from '../api';
 
-export function DeleteAlert(detail) {
+export function DeleteAlert({ title, id }) {
     const { isOpen, onClose, onOpen } = useDisclosure();
+    const navigate = useNavigate();
 
     function Delete(id) {
-        fetch(`${api.getUri()}recipes/${id}`, {
-            method: 'DELETE'
-        })
-            .then((result) => {
-                result.json().then((resp) => {
-                    console.warn(resp)
-                })
-            })
-            .then(window.location.href = `/`);
 
+        api
+            .delete(`${api.getUri()}recipes/${id}`)
+            .then(navigate(`/`));
     }
     return (
         <>
@@ -44,12 +40,12 @@ export function DeleteAlert(detail) {
                             id="new-note"
                             onSubmit={(event) => {
                                 event.preventDefault();
-                                Delete(detail.detail._id);
+                                Delete(id);
 
                             }}
                         >
                             <FormControl>
-                                <FormLabel>Určitě smazat recept {detail.detail.title}?</FormLabel>
+                                <FormLabel>Určitě smazat recept {title}?</FormLabel>
                             </FormControl>
                         </form>
                     </ModalBody>
