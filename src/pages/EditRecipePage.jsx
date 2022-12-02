@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex } from "@chakra-ui/react";
 import { Link, Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -61,7 +61,7 @@ export function EditRecipePage() {
 
     function SetFullIngredient() {
         ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
-        setQuantity('');
+        setQuantity('')
         setAmountUnit('')
         setName('')
     }
@@ -78,9 +78,8 @@ export function EditRecipePage() {
         setDirections(event.currentTarget.value)
     }
     function EditRecipee() {
-
         const requestOptions = {
-            method: 'POST', // NEBUDE TAM PUT, KEDZE TO NIEJE Axios
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: title,
@@ -107,14 +106,12 @@ export function EditRecipePage() {
                     }
                 </Box>
                 <Spacer />
-                <Box mb={10}  >
-                    <HStack spacing={2} alignItems='end' >
-                        <Button gap={1} bg='green.300' color='white' onClick={EditRecipee}><FaSave />Uložit</Button>
-                        <Link as={ReactRouterLink} to={`/recept/${slug}`}>
-                            <Button>Zrušit</Button>
-                        </Link>
-                    </HStack>
-                </Box>
+                <Flex gap={2}  >
+                    <Button gap={1} bg='green.300' color='white' onClick={EditRecipee}><FaSave />Uložit</Button>
+                    <Link as={ReactRouterLink} to={`/recept/${slug}`}>
+                        <Button>Zrušit</Button>
+                    </Link>
+                </Flex>
             </HStack >
 
 
@@ -130,7 +127,7 @@ export function EditRecipePage() {
 
 
             <Grid >
-                <HStack gap={5}>
+                <HStack gap={5} alignItems='left'>
 
                     <BasicInformation
                         inputValueForSideDish={sideDish} onInputValueChangeForSideDish={setSideDish}

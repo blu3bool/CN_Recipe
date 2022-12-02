@@ -19,7 +19,7 @@ export function AppHeader() {
       <Box mr={4}>
         <HStack p={2} spacing={6}>
           <Link as={ReactRouterLink} to="/sideDish">
-            Přílohy
+            PŘÍLOHY
           </Link>
           <Link as={ReactRouterLink} to="/api-test">
             API TEST

@@ -9,19 +9,19 @@ export function PreparationTime({ preparationTimeVar }) {
     let onlyMinutes = hours === 0
     let onlyHours = minutes === 0
     return (
-        <HStack color='blue.600' fontSize='1xl' gap={1}>
-            {!!preparationTimeVar &&
-                <>
+        <>
+            {preparationTimeVar &&
+                <HStack color='blue.600' fontSize='1xl' gap={1}>
                     <TimeIcon />
-                    {onlyMinutes
-                        ? `${minutes} min`
+                    {minutes
+                        ? <>{`${minutes} min`} </>
                         : <>{onlyHours
                             ? `${hours} h`
                             : `${hours} h ${minutes} min`
                         }</>
                     }
-                </>
+                </HStack>
             }
-        </HStack>
+        </>
     )
 }
