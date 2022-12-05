@@ -15,7 +15,6 @@ export function IngredientList({ ingredients, servingCount, calculateServingCoun
                 <Table size='lg' >
                     {ingredients.map((ingre) => (
                         <Tbody key={ingre._id}>
-                            {console.log(ingre)}
                             {ingre.isGroup
 
                                 ?
@@ -27,7 +26,7 @@ export function IngredientList({ ingredients, servingCount, calculateServingCoun
                                 :
                                 <Tr >{servingCount && calculateServingCount && ingre.amount
                                     ? <Td>{Math.round((Number(ingre.amount) / servingCount * calculateServingCount) * 100) / 100} </Td>
-                                    : <Td>{ingre.amount}{console.log(ingre.amount)}</Td>
+                                    : <Td>{ingre.amount}</Td>
                                 }
                                     <Td>{ingre.amountUnit}</Td>
                                     <Td >{ingre.name}</Td>

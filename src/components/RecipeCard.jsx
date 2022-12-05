@@ -1,4 +1,4 @@
-import { Card, CardBody, Image, Divider, CardFooter, Text, Box } from '@chakra-ui/react'
+import { Card, CardBody, Image, Divider, CardFooter, Text, Box, VStack, HStack, Heading } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import PlaceholderImage from '../images/food-placeholder.png'
 import SideDishImage from '../images/food_icon.png'
@@ -24,9 +24,9 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                 </CardBody>
                 <Divider />
                 <CardFooter >
-                    <Box >
-                        <Text size='md'> {title} </Text>
-                        <Box display='flex' alignItems='baseline' gap={3}  >
+                    <VStack align='left'>
+                        <Text>{title}</Text>
+                        <HStack>
                             {preparationTime !== 0 &&
                                 <PreparationTime preparationTimeVar={preparationTime} />
                             }
@@ -37,11 +37,10 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                                 </Text>
                             }
                             {preparationTime === 0 && sideDish === undefined &&
-                                <Text > Žiadne udaje</Text>/*FIX*/
+                                <Text > Žiadne udaje</Text>
                             }
-                        </Box>
-
-                    </Box>
+                        </HStack>
+                    </VStack>
 
 
                 </CardFooter>

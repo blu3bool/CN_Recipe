@@ -5,14 +5,16 @@ export function RecipeList({ recipes }) {
     return (
         <Box display="flex" gap={10} flexWrap="wrap" justifyContent="center">
             {recipes.length !== 0 &&
-                recipes.map(({ _id, title, preparationTime, slug, sideDish, servingCount }) => (
-                    <RecipeCard
+                recipes.map(({ _id, title, preparationTime, slug, sideDish, servingCount, lastModifiedDate }) => (
+                    < RecipeCard
                         key={_id}
                         title={title}
                         preparationTime={preparationTime}
                         slug={slug}
                         sideDish={sideDish}
                         servingCount={servingCount}
+                        lastModifiedDate={lastModifiedDate}
+
                     />
 
                 ))}

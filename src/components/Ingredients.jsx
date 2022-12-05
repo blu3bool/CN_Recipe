@@ -14,7 +14,6 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
             }
             {inputValueForIngredients.map((ingre, index) => (
                 <Box key={ingre._id}>
-                    {console.log(ingre)}
                     {ingre.isGroup !== true
                         ?
                         <HStack >

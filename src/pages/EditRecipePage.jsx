@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex, Alert, AlertIcon, useToast } from "@chakra-ui/react";
 import { Link, Link as ReactRouterLink, useNavigate, useParams } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
 import { DirecionView } from "../components/DirecionView";
 import { LoadingSpinner } from '../components/LoadingSpinner';
+
 
 
 
@@ -28,7 +29,7 @@ export function EditRecipePage() {
     const [directions, setDirections] = useState('');
 
     const navigate = useNavigate();
-
+    const toast = useToast()
     useEffect(() => {
         function getRecipesDetail() {
             setIsLoading(true);
@@ -63,7 +64,6 @@ export function EditRecipePage() {
 
     function SetFullIngredient() {
         ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
-        console.log('KURWA')
         setQuantity('')
         setAmountUnit('')
         setName('')
@@ -75,7 +75,7 @@ export function EditRecipePage() {
     }
     function AddGroupToIngredient() {
         ingredients.push({ name: group, isGroup: true })
-        setGroup('Ahoj')
+        setGroup('')
     }
     function DirectionSet(event) {
         setDirections(event.currentTarget.value)
@@ -90,8 +90,25 @@ export function EditRecipePage() {
                 directions: directions,
                 ingredients: ingredients
             })
-            .then(navigate(`/recept/${data._id}`));
-
+            .catch((error) => {
+                toast({
+                    description: "Nastala chyba, omlúvame sa ",
+                    status: 'error',
+                    duration: 4000,
+                    isClosable: false
+                })
+            })
+            .then((response) => {
+                if (response) {
+                    toast({
+                        description: "Recept bol uspešne upravený",
+                        status: 'success',
+                        duration: 4000,
+                        isClosable: false
+                    })
+                    navigate(`/recept/${data._id}`)
+                }
+            });
 
 
     }
