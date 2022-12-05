@@ -13,26 +13,11 @@ import {
 import { RecomendedRecipe } from '../components/RecomendedRecipe'
 import { api } from '../api';
 import { LoadingSpinner } from './LoadingSpinner';
+import { useRecipes } from '../customHooks/useRecipes';
 
 
 export function SideDishesList({ sideDishes }) {
-    const [recipes, setRecipes] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    useEffect(() => {
-        function getRecipes() {
-            setIsLoading(true);
-            api
-                .get('/recipes')
-                .then((response) => (
-                    setRecipes(response.data)
-                ))
-                .catch((error) => setError(error))
-                .finally(() => setIsLoading(false));
-        }
-
-        getRecipes();
-    }, [])
+    const { recipes, isLoading, error } = useRecipes();
     if (isLoading) {
         return <LoadingSpinner />;
     }

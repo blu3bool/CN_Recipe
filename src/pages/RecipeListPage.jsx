@@ -1,34 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Heading, Box, Text, Input, Button, RadioGroup, Radio, Stack } from '@chakra-ui/react';
-import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { RecipeList } from '../components/RecipeList';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { useRecipes } from '../customHooks/useRecipes';
 
 
 export function RecipeListPage() {
 
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { recipes, isLoading, error } = useRecipes();
+  const [sortedRecipes, setSortedRecipes] = useState([]);
+
+  if (sortedRecipes.length === 0 && recipes.length !== 0) setSortedRecipes(recipes)
+
 
   const [searchValue, setSearchValue] = useState('')
   const [sortValue, setSortValue] = useState('1')
-
-  const [sortedRecipes, setSortedRecipes] = useState([]);
-  useEffect(() => {
-    function getRecipes() {
-      setIsLoading(true);
-      api
-        .get('/recipes')
-        .then((response) => (setRecipes(response.data), setSortedRecipes(response.data)))
-        .catch((error) => setError(error))
-        .finally(() => setIsLoading(false));
-    }
-
-    getRecipes();
-  }, [])
-
 
 
   function setSortBy(event) {
@@ -46,7 +33,6 @@ export function RecipeListPage() {
         a.lastModifiedDate > b.lastModifiedDate ? 1 : -1,);
       setSortedRecipes(strAscending)
     }
-
   }
 
 
@@ -56,6 +42,7 @@ export function RecipeListPage() {
   const filteredRecipes = sortedRecipes.filter((recipe) =>
     recipe.title.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(searchValue.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
   );
+
   return (
     <Box px={5}>
       <Heading color="dodgerblue">

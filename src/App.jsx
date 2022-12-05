@@ -11,6 +11,7 @@ import { RecipeDetailPage } from './pages/RecipeDetailPage';
 import { SideDishPage } from './pages/SideDishPage';
 import { NewRecipePage } from './pages/NewRecipePage';
 import { EditRecipePage } from './pages/EditRecipePage';
+import { FridgePage } from './pages/FridgePage';
 
 export function App() {
   return (
@@ -22,9 +23,10 @@ export function App() {
             <Route path="/recept/:slug" element={<RecipeDetailPage />} />
             <Route path="/api-test" element={<ApiTestPage />} />
             <Route path="*" element={<NotFoundPage />} />
-            <Route path="/sideDish" element={<SideDishPage />} />
+            <Route path="/priloha" element={<SideDishPage />} />
             <Route path="/novy-recept" element={<NewRecipePage />} />
             <Route path="/recept/:slug/uprava" element={<EditRecipePage />} />
+            <Route path="/chladnicka" element={<FridgePage />} />
           </Routes>
         </AppLayout>
       </ChakraProvider>

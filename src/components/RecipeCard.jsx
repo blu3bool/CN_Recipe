@@ -1,7 +1,7 @@
 import { Card, CardBody, Image, Divider, CardFooter, Text, Box, VStack, HStack, Heading } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import PlaceholderImage from '../images/food-placeholder.png'
-import SideDishImage from '../images/food_icon.png'
+import { FaDrumstickBite } from 'react-icons/fa';
 import { PreparationTime } from './PreparationTime'
 import '../module/style.css'
 
@@ -32,7 +32,7 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                             }
                             {sideDish !== undefined &&
                                 <Text display='flex' alignItems='baseline' gap={1} >
-                                    <Image boxSize='3.5' src={SideDishImage}></Image>
+                                    <FaDrumstickBite />
                                     {sideDish}
                                 </Text>
                             }

@@ -1,8 +1,6 @@
 import { Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Button, Text, Box, Heading } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { FaQuestionCircle } from 'react-icons/fa'
-import { api } from '../api';
-import { LoadingSpinner } from '../components/LoadingSpinner';
 
 export function RecomendedRecipe({ sideDish, recipes }) {
 
@@ -18,16 +16,16 @@ export function RecomendedRecipe({ sideDish, recipes }) {
                 <PopoverBody  >
                     <Box>
                         {recipes.map((recipe) => (
-                            <>
+                            <Box key={recipe._id}>
                                 {recipe.sideDish === sideDish &&
                                     <Heading size='sm'>{recipe.title}</Heading>
                                 }
-                            </>
+                            </Box>
                         )
                         )}
                     </Box>
                 </PopoverBody>
             </PopoverContent>
-        </Popover>
+        </Popover >
     )
 }

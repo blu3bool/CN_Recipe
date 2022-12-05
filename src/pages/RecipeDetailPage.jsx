@@ -1,9 +1,6 @@
-import { Box, Heading, List, ListIcon, ListItem, Text, Button, HStack, Stack, VStack, ButtonGroup, Spacer, Grid, Flex, Center, InputGroup, InputLeftAddon, Input, Square } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react';
+import { Box, Heading, Text, Button, HStack, VStack, Spacer, Flex, InputGroup, InputLeftAddon, Image } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { api } from '../api';
 import { LoadingSpinner } from '../components/LoadingSpinner';
-import { MdCheckCircle } from "react-icons/md";
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { PreparationTime } from '../components/PreparationTime'
 import { IngredientList } from '../components/IngredientList';
@@ -12,47 +9,14 @@ import { FormatDate } from '../components/FormatDate';
 import { DeleteAlert } from '../components/DeleteAlert'
 import { NumberInputForm } from '../components/NumberInputForm';
 import '../module/style.css'
+import { useRecipesDetail } from "../customHooks/useRecipesDetail";
+import { FaDrumstickBite } from 'react-icons/fa';
 
 
 export function RecipeDetailPage() {
 
     const { slug } = useParams();
-    const [detail, setDetail] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [title, setTitle] = useState('');
-    const [time, setTime] = useState(0);
-    const [sideDish, setSideDish] = useState(null);
-    const [servingCount, setServingCount] = useState(0);
-    const [calculateServingCount, setCalculateServingCount] = useState(0);
-    const [ingredients, setIngredients] = useState([]);
-    const [directions, setDirections] = useState('');
-
-
-    useEffect(() => {
-        function getRecipesDetail() {
-            setIsLoading(true);
-            api
-                .get(`/recipes/${slug}`)
-                .then((response) =>
-                (
-                    setDetail(response.data),
-                    setTitle(response.data.title),
-                    setTime(response.data.preparationTime),
-                    setSideDish(response.data.sideDish),
-                    setServingCount(response.data.servingCount),
-                    setDirections(response.data.directions),
-                    setIngredients(response.data.ingredients),
-                    setCalculateServingCount(response.data.servingCount)
-
-                ))
-                .catch((error) => setError(error))
-                .finally(() => setIsLoading(false));
-        }
-
-
-        getRecipesDetail();
-    }, [slug]);
+    const { detail, isLoading, error, title, time, sideDish, servingCount, calculateServingCount, setCalculateServingCount, ingredients, directions } = useRecipesDetail(slug);
 
     if (isLoading) {
         return <LoadingSpinner />;
@@ -60,6 +24,7 @@ export function RecipeDetailPage() {
     if (error) {
         return <Text>{error}</Text>
     }
+
     return (
         <Box px={5} >
             {detail && (
@@ -75,10 +40,18 @@ export function RecipeDetailPage() {
                         </Flex>
                     </HStack>
 
-                    <Box mb={3}>
-                        {time !== 0 &&
-                            < PreparationTime preparationTimeVar={time} />
-                        }
+                    <Box mb={3} gap={3} >
+                        <HStack>
+                            {time !== 0 &&
+                                < PreparationTime preparationTimeVar={time} />
+                            }
+                            {sideDish &&
+                                <>
+                                    <FaDrumstickBite />
+                                    <Text>{sideDish}</Text>
+                                </>
+                            }
+                        </HStack>
                     </Box>
 
                     <HStack alignItems='left' >

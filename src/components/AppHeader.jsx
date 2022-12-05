@@ -14,16 +14,22 @@ export function AppHeader() {
       justifyContent="space-between"
     >
       <Heading ml={8} color="white">
-        <ReactRouterLink to="/">🍅 Cookbook 🥒</ReactRouterLink>
+        <ReactRouterLink to="/">🍅CN-Cookbook 🥒</ReactRouterLink>
       </Heading>
       <Box mr={4}>
         <HStack p={2} spacing={6}>
-          <Link as={ReactRouterLink} to="/sideDish">
-            PŘÍLOHY
+          <Link as={ReactRouterLink} to="/chladnicka">
+            CHLADNIČKA
           </Link>
-          <Link as={ReactRouterLink} to="/api-test">
+          <Link as={ReactRouterLink} to="/priloha">
+            PRÍLOHY
+          </Link>
+
+          {/*<Link as={ReactRouterLink} to="/api-test">
             API TEST
-          </Link>
+          </Link>*/}
+
+
           <Link as={ReactRouterLink} to="/">
             RECEPTY
           </Link>

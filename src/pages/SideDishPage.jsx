@@ -6,7 +6,6 @@ export function SideDishPage() {
     return (
         <Box px={5}>
             <Heading color="dodgerblue" mb={10}>Přílohy</Heading>
-
             <SideDishList />
         </Box>
     )

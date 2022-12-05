@@ -7,6 +7,7 @@ import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
 import { DirecionView } from "../components/DirecionView";
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { useRecipesDetail } from "../customHooks/useRecipesDetail";
 
 
 
@@ -14,43 +15,29 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 
 export function EditRecipePage() {
     const { slug } = useParams();
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [data, setData] = useState([]);
-    const [title, setTitle] = useState('');
-    const [time, setTime] = useState(0);
-    const [sideDish, setSideDish] = useState(null);
-    const [servingCount, setServingCount] = useState(0);
+    const [group, setGroup] = useState('');
     const [quantity, setQuantity] = useState('');
     const [amountUnit, setAmountUnit] = useState('');
     const [name, setName] = useState('');
-    const [ingredients, setIngredients] = useState([]);
-    const [group, setGroup] = useState('');
-    const [directions, setDirections] = useState('');
+    const { detail: data,
+        setDetail: setData,
+        isLoading,
+        error, title,
+        setTitle,
+        time,
+        setTime,
+        sideDish,
+        setSideDish,
+        servingCount,
+        setServingCount,
+        ingredients,
+        setIngredients,
+        directions,
+        setDirections
+    } = useRecipesDetail(slug);
 
     const navigate = useNavigate();
-    const toast = useToast()
-    useEffect(() => {
-        function getRecipesDetail() {
-            setIsLoading(true);
-            api
-                .get(`/recipes/${slug}`)
-                .then((response) => (
-                    setData(response.data),
-                    setTitle(response.data.title),
-                    setTime(response.data.preparationTime),
-                    setSideDish(response.data.sideDish),
-                    setServingCount(response.data.servingCount),
-                    setDirections(response.data.directions),
-                    setIngredients(response.data.ingredients)
-                ))
-                .catch((error) => setError(error))
-                .finally(() => setIsLoading(false));
-        }
-
-
-        getRecipesDetail();
-    }, [slug]);
+    const toast = useToast();
 
     if (isLoading) {
         return <LoadingSpinner />;
