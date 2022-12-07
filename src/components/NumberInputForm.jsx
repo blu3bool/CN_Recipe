@@ -12,6 +12,7 @@ export function NumberInputForm({ onInputValueChange, placeholder, inputValue })
             min={0}
             value={inputValue}
             onChange={(val) => onInputValueChange(val)}
+            size='lg'
         >
             <NumberInputField placeholder={placeholder} />
             <NumberInputStepper>

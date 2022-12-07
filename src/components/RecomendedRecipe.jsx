@@ -1,5 +1,4 @@
-import { Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Button, Text, Box, Heading } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import { Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Button, Box, Heading } from '@chakra-ui/react'
 import { FaQuestionCircle } from 'react-icons/fa'
 
 export function RecomendedRecipe({ sideDish, recipes }) {

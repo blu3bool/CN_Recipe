@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Button, HStack, VStack, Spacer, Flex, InputGroup, InputLeftAddon, Image } from '@chakra-ui/react'
+import { Box, Heading, Text, Button, HStack, VStack, Spacer, Flex, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -36,7 +36,7 @@ export function RecipeDetailPage() {
                         <Spacer />
                         <Flex gap={2}>
                             <DeleteAlert title={title} id={detail._id} detail={detail} />
-                            <Button as={ReactRouterLink} to={`/recept/${slug}/uprava`} >Upravit</Button>
+                            <Button as={ReactRouterLink} to={`/recept/${slug}/uprava`} bg={'blue.200'}>Upravit</Button>
                         </Flex>
                     </HStack>
 
@@ -67,7 +67,7 @@ export function RecipeDetailPage() {
                         {directions
                             ? <FormatDirections directions={directions} />
                             : <Box w="100%" >
-                                <Heading textAlign='center' size='md' bg='blue.100' border='6px solid lightblue' >Žádný postup.</Heading>
+                                <Heading textAlign='center' size='md' bg='lightblue' border='6px solid lightblue' >Žádný postup.</Heading>
                             </Box>
                         }
                     </HStack>

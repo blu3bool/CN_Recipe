@@ -1,12 +1,12 @@
-import { Box, Button, Heading, HStack, Input, Table, TableContainer, Tbody, Td, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import { Button, Heading, HStack, Input, Table, TableContainer, Tbody, Td, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useState } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { FaTrash } from "react-icons/fa";
 
 export function FridgePage() {
-    const [amount, setAmount] = useState('');
-    const [amountUnit, setAmountUnit] = useState('');
+    const [amount, setAmount] = useState(null);
+    const [amountUnit, setAmountUnit] = useState(null);
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useLocalStorage("fridge", []);
     function AddIngredient() {
@@ -31,6 +31,7 @@ export function FridgePage() {
                         </Tr>
                     </Thead>
                     <Tbody>
+
                         {ingredients.map((ingre) =>
                             <Tr key={ingre.id}>
                                 <Td ><Button onClick={() => removeIngredient(ingre.id)}><FaTrash /></Button></Td>

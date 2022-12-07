@@ -1,7 +1,7 @@
-import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex, Alert, AlertIcon, useToast } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Spacer, Grid, Text, VStack, Textarea, Flex, useToast } from "@chakra-ui/react";
 import { Link, Link as ReactRouterLink, useNavigate, useParams } from 'react-router-dom';
 import { FaSave } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "../api";
 import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
@@ -19,8 +19,9 @@ export function EditRecipePage() {
     const [quantity, setQuantity] = useState('');
     const [amountUnit, setAmountUnit] = useState('');
     const [name, setName] = useState('');
-    const { detail: data,
-        setDetail: setData,
+
+    const {
+        detail: data,
         isLoading,
         error, title,
         setTitle,
@@ -63,36 +64,42 @@ export function EditRecipePage() {
     }
 
     function EditRecipee() {
-        api
-            .post(`${api.getUri()}recipes/${data._id}`, {
-                title: title,
-                servingCount: servingCount,
-                sideDish: sideDish,
-                preparationTime: time,
-                directions: directions,
-                ingredients: ingredients
-            })
-            .catch((error) => {
-                toast({
-                    description: "Nastala chyba, omlúvame sa ",
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: false
+        title
+            ?
+            api
+                .post(`${api.getUri()}recipes/${data._id}`, {
+                    title: title,
+                    servingCount: servingCount,
+                    sideDish: sideDish,
+                    preparationTime: time,
+                    directions: directions,
+                    ingredients: ingredients
                 })
-            })
-            .then((response) => {
-                if (response) {
+                .catch((error) => {
                     toast({
-                        description: "Recept bol uspešne upravený",
-                        status: 'success',
+                        description: "Nastala chyba, omlúvame sa ",
+                        status: 'error',
                         duration: 4000,
                         isClosable: false
                     })
-                    navigate(`/recept/${data._id}`)
-                }
-            });
-
-
+                })
+                .then((response) => {
+                    if (response) {
+                        toast({
+                            description: "Recept bol uspešne upravený",
+                            status: 'success',
+                            duration: 4000,
+                            isClosable: false
+                        })
+                        navigate(`/recept/${data._id}`)
+                    }
+                })
+            : toast({
+                description: "Pozor, musíš zadať názov",
+                status: 'error',
+                duration: 4000,
+                isClosable: false
+            })
     }
     return (
         <Box px={5} >
@@ -100,7 +107,7 @@ export function EditRecipePage() {
             <HStack mb={5}>
                 <Box fontSize='5xl' color='blue.400'>
                     {title === ''
-                        ? 'Nový recept'
+                        ? 'Editace receptu'
                         : title
                     }
                 </Box>
@@ -120,7 +127,7 @@ export function EditRecipePage() {
             <Box mb={2}>
                 {title === ''
                     ? <Text color='red.400'>Název je povinný</Text>
-                    : <Text></Text>
+                    : <></>
                 }
             </Box>
 

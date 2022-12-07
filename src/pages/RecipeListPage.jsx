@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Heading, Box, Text, Input, Button, RadioGroup, Radio, Stack } from '@chakra-ui/react';
+import { Heading, Box, Text, Input, Button, RadioGroup, Radio, Stack, HStack, Spacer } from '@chakra-ui/react';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { RecipeList } from '../components/RecipeList';
 import { Link as ReactRouterLink } from 'react-router-dom';
@@ -41,14 +41,15 @@ export function RecipeListPage() {
 
   return (
     <Box px={5}>
-      <Heading color="dodgerblue">
-        Recepty
-      </Heading>
-      <Box textAlign='right' px={5} pb={6}>
+      <HStack pb={6}>
+        <Heading color="dodgerblue">
+          Recepty
+        </Heading>
+        <Spacer />
         <Button as={ReactRouterLink} to="/novy-recept" className='ownbutton'>
           Nový recept
         </Button>
-      </Box>
+      </HStack>
       <Input placeholder='Hladaj' value={searchValue} onChange={(e) => setSearchValue(e.currentTarget.value)} />
       {isLoading && <LoadingSpinner />}
       {error && <Text>{error}</Text>}

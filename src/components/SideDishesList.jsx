@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { FaQuestionCircle } from "react-icons/fa";
-import { Card, CardBody, Image, Divider, CardFooter, Text, Box, VStack, HStack, Heading, CardHeader, Stack, StackDivider } from '@chakra-ui/react'
+import { Card, CardBody, Image, CardFooter, Text, Heading, Stack, HStack } from '@chakra-ui/react'
 import { RecomendedRecipe } from '../components/RecomendedRecipe'
-import { api } from '../api';
-import { LoadingSpinner } from './LoadingSpinner';
 import { useRecipes } from '../hooks/useRecipes';
 import PlaceholderImage from '../images/sideDish.png'
 
@@ -29,12 +25,12 @@ export function SideDishesList({ sideDish }) {
                 <CardBody>
                     <Heading size='md'>{sideDish}</Heading>
                 </CardBody>
-
                 <CardFooter display='block'>
                     <Heading size='sm' >Čo dobré by si si dal k prílohe?</Heading>
-                    <Text>Tady máš naše odporučanie:
+                    <HStack>
+                        <Text>Tady máš naše odporučanie: </Text>
                         <RecomendedRecipe sideDish={sideDish} recipes={recipes} />
-                    </Text>
+                    </HStack>
                 </CardFooter>
             </Stack>
         </Card >

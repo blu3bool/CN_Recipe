@@ -38,35 +38,42 @@ export function NewRecipePage() {
         setGroup('')
     }
     function AddNewRecipe() {
-
-        api
-            .post(`${api.getUri()}recipes/`, {
-                title: title,
-                servingCount: servingCount,
-                sideDish: sideDish,
-                preparationTime: time,
-                directions: directions,
-                ingredients: ingredients
-            })
-            .catch((error) => {
-                toast({
-                    description: "Nastala chyba, omlúvame sa ",
-                    status: 'error',
-                    duration: 4000,
-                    isClosable: false
+        title
+            ?
+            api
+                .post(`${api.getUri()}recipes/`, {
+                    title: title,
+                    servingCount: servingCount,
+                    sideDish: sideDish,
+                    preparationTime: time,
+                    directions: directions,
+                    ingredients: ingredients
                 })
-            })
-            .then((response) => {
-                if (response) {
+                .catch((error) => {
                     toast({
-                        description: "Recept bol uspesne vytvoreny ",
-                        status: 'success',
+                        description: "Nastala chyba, omlúvame sa ",
+                        status: 'error',
                         duration: 4000,
                         isClosable: false
                     })
-                    navigate(`/recept/${response.data._id}`)
-                }
-            });
+                })
+                .then((response) => {
+                    if (response) {
+                        toast({
+                            description: "Recept bol uspesne vytvoreny ",
+                            status: 'success',
+                            duration: 4000,
+                            isClosable: false
+                        })
+                        navigate(`/recept/${response.data._id}`)
+                    }
+                })
+            : toast({
+                description: "Pozor, musíš zadať názov",
+                status: 'error',
+                duration: 4000,
+                isClosable: false
+            })
     }
     return (
         <Box px={5} >

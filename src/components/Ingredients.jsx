@@ -10,7 +10,7 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
             <Text fontSize='xl'>Ingredience</Text>
             {!!!inputValueForIngredients.length &&
 
-                < Text bg='red.100' > Zatím žádné ingredience.</Text>
+                < Text bg='lightblue' border='6px solid lightblue'> Zatím žádné ingredience.</Text>
             }
             {inputValueForIngredients.map((ingre, index) => (
                 <Box key={ingre._id}>

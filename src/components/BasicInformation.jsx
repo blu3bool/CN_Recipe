@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Text, VStack, InputGroup, InputRightAddon, Select, HStack, Input, Button, Heading } from "@chakra-ui/react";
+import { Text, VStack, InputGroup, InputRightAddon, Select, Input, Button, Heading } from "@chakra-ui/react";
 import { NumberInputForm } from './NumberInputForm';
 import { api } from '../api';
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 
 
 
 export function BasicInformation({ inputValueForSideDish, onInputValueChangeForSideDish, inputValueForTime, onInputValueChangeForTime, inputValueForServingCount, onInputValueChangeForServingCount }) {
     const [count, setCount] = useState(0);
     function addNewSideDish() {
-        if (count === 1) {
-
-            setCount(0)
-        }
-        else {
-            setCount(count + 1)
-
-        }
+        count === 1 ? setCount(0) : setCount(count + 1)
         onInputValueChangeForSideDish('')
     }
 
@@ -52,7 +45,8 @@ export function BasicInformation({ inputValueForSideDish, onInputValueChangeForS
             {sidedishes.length !== 0 &&
                 <>
                     {count !== 1
-                        ? <>
+                        ?
+                        <>
                             <Select placeholder='Select option'
                                 value={inputValueForSideDish}
                                 onChange={(val) => onInputValueChangeForSideDish(val.target.value)} >
