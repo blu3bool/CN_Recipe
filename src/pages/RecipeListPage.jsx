@@ -3,7 +3,7 @@ import { Heading, Box, Text, Input, Button, RadioGroup, Radio, Stack } from '@ch
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { RecipeList } from '../components/RecipeList';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { useRecipes } from '../customHooks/useRecipes';
+import { useRecipes } from '../hooks/useRecipes';
 
 
 export function RecipeListPage() {
@@ -24,21 +24,17 @@ export function RecipeListPage() {
       setSortedRecipes(recipes)
     }
     if (event === "2") {
-      const strAscending = [...recipes].sort((a, b) =>
+      const sortedByNewest = [...recipes].sort((a, b) =>
         a.lastModifiedDate > b.lastModifiedDate ? -1 : 1,);
-      setSortedRecipes(strAscending)
+      setSortedRecipes(sortedByNewest)
     }
     if (event === "3") {
-      const strAscending = [...recipes].sort((a, b) =>
+      const sortedByOldest = [...recipes].sort((a, b) =>
         a.lastModifiedDate > b.lastModifiedDate ? 1 : -1,);
-      setSortedRecipes(strAscending)
+      setSortedRecipes(sortedByOldest)
     }
   }
 
-
-  function handleInputValueChange(event) {
-    setSearchValue(event.currentTarget.value)
-  }
   const filteredRecipes = sortedRecipes.filter((recipe) =>
     recipe.title.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "").includes(searchValue.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, ""))
   );
@@ -53,7 +49,7 @@ export function RecipeListPage() {
           Nový recept
         </Button>
       </Box>
-      <Input placeholder='Hladaj' value={searchValue} onChange={handleInputValueChange} />
+      <Input placeholder='Hladaj' value={searchValue} onChange={(e) => setSearchValue(e.currentTarget.value)} />
       {isLoading && <LoadingSpinner />}
       {error && <Text>{error}</Text>}
 

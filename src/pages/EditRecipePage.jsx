@@ -7,7 +7,7 @@ import { BasicInformation } from "../components/BasicInformation";
 import { Ingredients } from "../components/Ingredients";
 import { DirecionView } from "../components/DirecionView";
 import { LoadingSpinner } from '../components/LoadingSpinner';
-import { useRecipesDetail } from "../customHooks/useRecipesDetail";
+import { useRecipesDetail } from "../hooks/useRecipesDetail";
 
 
 
@@ -45,9 +45,6 @@ export function EditRecipePage() {
     if (error) {
         return <Text>{error}</Text>
     }
-    function handleInputTitleChange(event) {
-        setTitle(event.currentTarget.value)
-    }
 
     function SetFullIngredient() {
         ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
@@ -64,9 +61,7 @@ export function EditRecipePage() {
         ingredients.push({ name: group, isGroup: true })
         setGroup('')
     }
-    function DirectionSet(event) {
-        setDirections(event.currentTarget.value)
-    }
+
     function EditRecipee() {
         api
             .post(`${api.getUri()}recipes/${data._id}`, {
@@ -120,7 +115,7 @@ export function EditRecipePage() {
 
 
             <Box>
-                <Input isInvalid errorBorderColor='crimson' placeholder='Název' value={title} onChange={handleInputTitleChange} />
+                <Input isInvalid errorBorderColor='crimson' placeholder='Název' value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
             </Box>
             <Box mb={2}>
                 {title === ''
@@ -152,7 +147,7 @@ export function EditRecipePage() {
 
                     <VStack flex='1'>
                         <Text fontSize='xl'>Postup</Text>
-                        <Textarea h={200} value={directions} onChange={DirectionSet} />
+                        <Textarea h={200} value={directions} onChange={(e) => setDirections(e.currentTarget.value)} />
                         <DirecionView directionsValue={directions} />
                     </VStack>
                 </HStack>

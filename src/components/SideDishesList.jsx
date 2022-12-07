@@ -1,49 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { FaQuestionCircle } from "react-icons/fa";
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableContainer,
-    Text
-} from '@chakra-ui/react'
+import { Card, CardBody, Image, Divider, CardFooter, Text, Box, VStack, HStack, Heading, CardHeader, Stack, StackDivider } from '@chakra-ui/react'
 import { RecomendedRecipe } from '../components/RecomendedRecipe'
 import { api } from '../api';
 import { LoadingSpinner } from './LoadingSpinner';
-import { useRecipes } from '../customHooks/useRecipes';
+import { useRecipes } from '../hooks/useRecipes';
+import PlaceholderImage from '../images/sideDish.png'
 
 
-export function SideDishesList({ sideDishes }) {
-    const { recipes, isLoading, error } = useRecipes();
-    if (isLoading) {
-        return <LoadingSpinner />;
-    }
-    if (error) {
-        return <Text>{error}</Text>
-    }
+export function SideDishesList({ sideDish }) {
+    const { recipes } = useRecipes();
 
     return (
-        <TableContainer w={300}>
-            <Table size='sm' >
-                <Thead>
-                    <Tr>
-                        <Th>Název</Th>
-                        <Th >Čo k prílohe?</Th>
-                    </Tr>
-                </Thead>
-                <Tbody >
-                    {sideDishes.map((sideDish) =>
-                        <Tr key={sideDish}>
-                            <Td >{sideDish}</Td>
-                            <Td ><RecomendedRecipe sideDish={sideDish} recipes={recipes} /></Td>
-                        </Tr>
-                    )}
-                </Tbody>
-            </Table>
-        </TableContainer>
+        <Card
+            direction={{ base: 'column', sm: 'row' }}
+            overflow='hidden'
+            variant='outline'
+            className='shadowbox'
+
+        >
+            <Image
+                objectFit='cover'
+                maxW={{ base: '100%', sm: '200px' }}
+                src={PlaceholderImage}
+                alt='SideDish'
+            />
+            <Stack>
+                <CardBody>
+                    <Heading size='md'>{sideDish}</Heading>
+                </CardBody>
+
+                <CardFooter display='block'>
+                    <Heading size='sm' >Čo dobré by si si dal k prílohe?</Heading>
+                    <Text>Tady máš naše odporučanie:
+                        <RecomendedRecipe sideDish={sideDish} recipes={recipes} />
+                    </Text>
+                </CardFooter>
+            </Stack>
+        </Card >
 
     )
 }

@@ -11,7 +11,7 @@ export function RecomendedRecipe({ sideDish, recipes }) {
             </PopoverTrigger>
             <PopoverContent width='auto'>
                 <PopoverCloseButton />
-                <PopoverHeader color='#ADD8E6'>Naše odporučania</PopoverHeader>
+                <PopoverHeader color='blue.500'>Naše odporučania</PopoverHeader>
 
                 <PopoverBody  >
                     <Box>

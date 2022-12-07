@@ -38,5 +38,23 @@ export function useRecipesDetail(slug) {
         getRecipesDetail();
     }, [slug]);
 
-    return { detail, isLoading, error, title, time, sideDish, servingCount, calculateServingCount, ingredients, directions, setTitle, setTime, setSideDish, setServingCount, setCalculateServingCount, setIngredients, setDirections }
+    return {
+        detail,
+        isLoading,
+        error,
+        title,
+        time,
+        sideDish,
+        servingCount,
+        calculateServingCount,
+        ingredients,
+        directions,
+        setTitle,
+        setTime,
+        setSideDish,
+        setServingCount,
+        setCalculateServingCount,
+        setIngredients,
+        setDirections
+    }
 }

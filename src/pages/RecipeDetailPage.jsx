@@ -9,7 +9,7 @@ import { FormatDate } from '../components/FormatDate';
 import { DeleteAlert } from '../components/DeleteAlert'
 import { NumberInputForm } from '../components/NumberInputForm';
 import '../module/style.css'
-import { useRecipesDetail } from "../customHooks/useRecipesDetail";
+import { useRecipesDetail } from "../hooks/useRecipesDetail";
 import { FaDrumstickBite } from 'react-icons/fa';
 
 

@@ -20,13 +20,8 @@ export function NewRecipePage() {
     const [group, setGroup] = useState('');
     const [directions, setDirections] = useState('');
     const toast = useToast()
-
     const navigate = useNavigate();
 
-
-    function handleInputTitleChange(event) {
-        setTitle(event.currentTarget.value)
-    }
     function SetFullIngredient() {
         ingredients.push({ name: name, amount: quantity, amountUnit: amountUnit, isGroup: false })
         setQuantity('')
@@ -42,10 +37,8 @@ export function NewRecipePage() {
         ingredients.push({ name: group, isGroup: true })
         setGroup('')
     }
-    function DirectionSet(event) {
-        setDirections(event.currentTarget.value)
-    }
     function AddNewRecipe() {
+
         api
             .post(`${api.getUri()}recipes/`, {
                 title: title,
@@ -98,7 +91,7 @@ export function NewRecipePage() {
 
 
             <Box>
-                <Input isInvalid errorBorderColor='crimson' placeholder='Název' value={title} onChange={handleInputTitleChange} />
+                <Input isInvalid errorBorderColor='crimson' placeholder='Název' value={title} onChange={(e) => setTitle(e.currentTarget.value)} />
             </Box>
             <Box mb={2}>
                 {title === ''
@@ -136,7 +129,7 @@ export function NewRecipePage() {
 
                     <VStack flex='1'>
                         <Text fontSize='xl'>Postup</Text>
-                        <Textarea h={200} value={directions} onChange={DirectionSet} />
+                        <Textarea h={200} value={directions} onChange={(e) => setDirections(e.currentTarget.value)} />
                         <DirecionView directionsValue={directions} />
                     </VStack>
                 </HStack>

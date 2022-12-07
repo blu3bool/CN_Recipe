@@ -1,7 +1,8 @@
 import { Box, Button, Heading, HStack, Input, Table, TableContainer, Tbody, Td, Th, Thead, Tr, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { useState } from 'react';
-import { useLocalStorage } from '../customHooks/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { FaTrash } from "react-icons/fa";
 
 export function FridgePage() {
     const [amount, setAmount] = useState('');
@@ -9,7 +10,12 @@ export function FridgePage() {
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useLocalStorage("fridge", []);
     function AddIngredient() {
-        setIngredients([...ingredients, { name: name, amount: amount, amountUnit: amountUnit }])
+        const nextId = ingredients.length > 0 ? Math.max(...ingredients.map((ingre) => ingre.id)) + 1 : 0;
+        setIngredients([...ingredients, { id: nextId, name: name, amount: amount, amountUnit: amountUnit }])
+    }
+    function removeIngredient(id) {
+        const newIngredients = ingredients.filter((ingre) => ingre.id !== id);
+        setIngredients(newIngredients)
     }
     return (
         <VStack>
@@ -18,6 +24,7 @@ export function FridgePage() {
                 <Table size='sm' >
                     <Thead>
                         <Tr>
+                            <Th></Th>
                             <Th>Množstvo</Th>
                             <Th >Jednotka</Th>
                             <Th >Název</Th>
@@ -25,7 +32,8 @@ export function FridgePage() {
                     </Thead>
                     <Tbody>
                         {ingredients.map((ingre) =>
-                            <Tr key={ingre.name}>
+                            <Tr key={ingre.id}>
+                                <Td ><Button onClick={() => removeIngredient(ingre.id)}><FaTrash /></Button></Td>
                                 <Td >{ingre.amount}</Td>
                                 <Td >{ingre.amountUnit}</Td>
                                 <Td >{ingre.name}</Td>
@@ -35,7 +43,7 @@ export function FridgePage() {
                 </Table>
             </TableContainer>
             <HStack>
-                <Input placeholder='Množství' onChange={(e) => setAmount(e.currentTarget.value)} value={amount} />
+                <Input type='number' placeholder='Množství' onChange={(e) => setAmount(e.currentTarget.value)} value={amount} />
                 <Input placeholder='Jednotka' onChange={(e) => setAmountUnit(e.currentTarget.value)} value={amountUnit} />
             </HStack>
             <HStack>
