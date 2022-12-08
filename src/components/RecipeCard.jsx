@@ -10,7 +10,6 @@ import '../module/style.css'
 export function RecipeCard({ slug, title, preparationTime, sideDish }) {
 
     return (
-
         < Link to={`/recept/${slug}`
         }>
             <Card maxW='md' className='shadowbox'>
@@ -20,7 +19,6 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                         alt='Green double couch with wooden legs'
                         borderRadius='lg'
                     />
-
                 </CardBody>
                 <Divider />
                 <CardFooter >
@@ -30,7 +28,7 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                             {preparationTime !== 0 &&
                                 <PreparationTime preparationTimeVar={preparationTime} />
                             }
-                            {sideDish !== undefined &&
+                            {sideDish &&
                                 <Text display='flex' alignItems='baseline' gap={1} >
                                     <FaDrumstickBite />
                                     {sideDish}

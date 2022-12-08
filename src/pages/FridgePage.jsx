@@ -5,8 +5,8 @@ import { useLocalStorage } from '../hooks/useLocalStorage';
 import { FaTrash } from "react-icons/fa";
 
 export function FridgePage() {
-    const [amount, setAmount] = useState(null);
-    const [amountUnit, setAmountUnit] = useState(null);
+    const [amount, setAmount] = useState('');
+    const [amountUnit, setAmountUnit] = useState('');
     const [name, setName] = useState('');
     const [ingredients, setIngredients] = useLocalStorage("fridge", []);
     function AddIngredient() {

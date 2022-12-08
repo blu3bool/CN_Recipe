@@ -4,8 +4,8 @@ import { useRecipes } from '../hooks/useRecipes';
 import PlaceholderImage from '../images/sideDish.png'
 
 
-export function SideDishesList({ sideDish }) {
-    const { recipes } = useRecipes();
+export function SideDishesList({ sideDish, recipes }) {
+
 
     return (
         <Card

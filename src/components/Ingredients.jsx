@@ -20,9 +20,9 @@ export function Ingredients({ inputValueForQuantity, onInputValueChangeForQuanti
 
                             <Button variant='ghost' value={[index]} onClick={removeIngredient}><FaTrash /></Button>
                             <HStack >
-                                <Text>{ingre.name}</Text>
                                 <Text>{ingre.amount}</Text>
                                 <Text>{ingre.amountUnit}</Text>
+                                <Text>{ingre.name}</Text>
                             </HStack>
                         </HStack>
                         :
