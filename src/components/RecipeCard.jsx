@@ -1,4 +1,4 @@
-import { Card, CardBody, Image, Divider, CardFooter, Text, Box, VStack, HStack, Heading } from '@chakra-ui/react'
+import { Card, CardBody, Image, Divider, CardFooter, Text, VStack, HStack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import PlaceholderImage from '../images/food-placeholder.png'
 import { FaDrumstickBite } from 'react-icons/fa';
@@ -35,7 +35,7 @@ export function RecipeCard({ slug, title, preparationTime, sideDish }) {
                                 </Text>
                             }
                             {preparationTime === 0 && sideDish === undefined &&
-                                <Text > Žiadne udaje</Text>
+                                <Text color='blue.200'> Žiadne udaje</Text>
                             }
                         </HStack>
                     </VStack>

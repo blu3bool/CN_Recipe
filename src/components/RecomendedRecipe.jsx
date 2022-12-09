@@ -1,6 +1,4 @@
 import { Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Button, Box, Heading } from '@chakra-ui/react'
-import { number } from 'prop-types';
-import { useState } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa'
 
 export function RecomendedRecipe({ sideDish, recipes }) {
@@ -13,7 +11,6 @@ export function RecomendedRecipe({ sideDish, recipes }) {
             <PopoverContent >
                 <PopoverCloseButton />
                 <PopoverHeader color='blue.500'>Naše odporučania</PopoverHeader>
-
                 <PopoverBody >
                     {recipes.map((recipe) => (
                         <Box key={recipe._id} >

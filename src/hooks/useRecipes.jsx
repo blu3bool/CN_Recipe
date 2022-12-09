@@ -16,7 +16,6 @@ export function useRecipes() {
                 .finally(() => setIsLoading(false));
         }
         getRecipes();
-        console.log('vykonavam')
     }, [])
     return { recipes, setRecipes, isLoading, error }
 }
